@@ -66,6 +66,11 @@ public final class ExceptionHandling {
     }
 
     @Unmanaged
+    public static void throwClassCastException() {
+        throw new ClassCastException();
+    }
+
+    @Unmanaged
     public static int callStackSize() {
         Address stackFrame = ShadowStack.getStackTop();
         int size = 0;
