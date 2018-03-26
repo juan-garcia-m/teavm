@@ -226,4 +226,8 @@ public class NameProvider {
 
         return result;
     }
+
+    public Set<? extends ValueType> getTypes() {
+        return classInstanceNames.keySet();
+    }
 }

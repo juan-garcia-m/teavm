@@ -34,7 +34,7 @@ public class CodeGenerator {
     }
 
     public void generateMethod(RegularMethodNode methodNode) {
-        generateMethodSignature(methodNode.getReference(),
+        generateMethodSignature(writer, methodNode.getReference(),
                 methodNode.getModifiers().contains(ElementModifier.STATIC), true);
 
         writer.print(" {").indent().println();
@@ -48,16 +48,18 @@ public class CodeGenerator {
         writer.outdent().println("}");
     }
 
-    public void generateMethodSignature(MethodReference methodRef, boolean isStatic, boolean withNames) {
+    public void generateMethodSignature(CodeWriter writer, MethodReference methodRef, boolean isStatic,
+            boolean withNames) {
         writer.print("static ");
         writer.printType(methodRef.getReturnType()).print(" ").print(names.forMethod(methodRef)).print("(");
 
-        generateMethodParameters(methodRef.getDescriptor(), isStatic, withNames);
+        generateMethodParameters(writer, methodRef.getDescriptor(), isStatic, withNames);
 
         writer.print(")");
     }
 
-    public void generateMethodParameters(MethodDescriptor methodRef, boolean isStatic, boolean withNames) {
+    public void generateMethodParameters(CodeWriter writer, MethodDescriptor methodRef, boolean isStatic,
+            boolean withNames) {
         if (methodRef.parameterCount() == 0 && isStatic) {
             return;
         }
